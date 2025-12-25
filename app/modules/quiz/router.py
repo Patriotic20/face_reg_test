@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Header, Query, status
+from fastapi import APIRouter, Depends, Query, status, UploadFile , File
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.db_helper import db_helper
@@ -46,20 +46,23 @@ async def create_quiz(
     )
 
 
-@router.get(
+@router.post(
     "/start",
     response_model=dict,
 )
 async def start_quiz(
-    quiz_id: int = Query(...),
-    pin: str = Query(...),
+    quiz_id: int,
+    pin: str,
+    user_image: UploadFile = File(),
     current_user: User = Depends(require_permission("quizzes:start")),
     service: QuizService = Depends(get_quiz_service),
 ) -> QuizResultResponse:
     """Start a quiz"""
     return await service.start_quiz(
+        user_id=current_user.id,
         user_role=current_user.roles[0].name,
         quiz_id=quiz_id,
+        user_image=user_image,
         pin=pin,
     )
 

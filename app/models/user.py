@@ -28,6 +28,11 @@ class User(IdIntPk, TimestampMixin ,Base):
         nullable=False,
     )
     
+    image: Mapped[str] = mapped_column(
+        String, 
+        nullable=True
+    )
+    
     roles: Mapped[list["Role"]] = relationship(
         "Role",
         secondary="user_role_association",

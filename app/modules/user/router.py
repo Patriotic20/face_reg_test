@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from core.db_helper import db_helper
+from core.utils.save_file import save_file
 from core.logging import logging
 from .services import UserServices
 from .schemas import (
@@ -12,6 +14,7 @@ from core.schemas.pagination import Pagination
 
 from core.utils.dependencies import require_permission
 from models.user import User
+
 
 logger = logging.getLogger(__name__)
 
@@ -153,3 +156,12 @@ async def delete_user(
     """
     logger.info(f"DELETE /users/{user_id} - Deleting user {user_id}")
     return await service.delete_user(user_id=user_id)
+
+
+@router.post("/upload/face")
+async def upload_face(
+    image_face: UploadFile = File(),
+    service: UserServices = Depends(get_user_service),
+    current_user: User = Depends(require_permission("users:upload")),
+):
+    return await service.save_user_image(user_id=current_user.id, image_file=image_face)

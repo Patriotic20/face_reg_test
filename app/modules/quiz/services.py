@@ -2,13 +2,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import IntegrityError
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, UploadFile
 
 from core.schemas.pagination import Pagination
 from core.config import settings
 from core.logging import logging
 from core.mixins.crud import create
 from models.quiz import Quiz
+from models.user import User
 from models.results import Result
 from .schemas import (
     QuizUpdate,
@@ -20,6 +21,7 @@ from .schemas import (
     QuizResultResponse,
 
 )
+from .utils.compare_faces import compare_faces
 
 logger = logging.getLogger(__name__)
 
@@ -287,25 +289,37 @@ class QuizService:
                 detail="Failed to delete quiz",
             )
             
-    async def start_quiz(self, user_role: str, quiz_id: int, pin: str):
+    async def start_quiz(
+        self, 
+        user_id: int,
+        user_image: UploadFile,
+        user_role: str, 
+        quiz_id: int, 
+        pin: str
+    ):
         """
         Start a quiz for a user with proper validation.
-        
         Args:
+            user_id: User ID
+            user_image: User's uploaded image for face verification
             user_role: User role (admin, student, guest)
             quiz_id: Quiz ID to start
             pin: Quiz PIN for validation
-            
         Returns:
             dict: Quiz data with questions or error message
-            
         Raises:
-            ValueError: If quiz not found, PIN incorrect, or role invalid
+            HTTPException: If quiz not found, PIN incorrect, role invalid, or face doesn't match
         """
         # Validate user role
         valid_roles = {"admin", "student", "guest"}
         if user_role.lower() not in valid_roles:
-            raise ValueError(f"Invalid user role: {user_role}")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid user role: {user_role}"
+            )
+        
+        # Check user face match with uploaded image
+        await self.get_user_and_check(user_id=user_id, img2_file=user_image)
         
         # Fetch quiz with questions in one query (more efficient)
         quiz_stmt = select(Quiz).where(Quiz.id == quiz_id).options(
@@ -319,11 +333,14 @@ class QuizService:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Quiz with ID {quiz_id} not found"
-                )
+            )
         
         # Validate PIN
         if quiz_data.pin != pin:
-            raise ValueError("Invalid PIN for this quiz")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid PIN for this quiz"
+            )
         
         # Prepare response
         return {
@@ -418,6 +435,52 @@ class QuizService:
             return "C"
         else:
             return "F"
+            
+    async def get_user_and_check(self, user_id: int, img2_file: UploadFile):
+        """
+        Retrieve user and verify face image matches stored user image.
+        
+        Args:
+            user_id: User ID to fetch
+            img2_file: Uploaded image file for face verification
+            
+        Raises:
+            HTTPException: If user not found or face doesn't match
+        """
+        # Fetch user from database
+        stmt = select(User).where(User.id == user_id)
+        result = await self.session.execute(stmt)
+        user_data = result.scalars().first()
+        
+        # Check if user exists
+        if not user_data:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"User with ID {user_id} not found"
+            )
+        
+        # Check if user has stored image
+        if not user_data.image:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="User has no stored image for verification"
+            )
+        
+        # Compare faces
+        is_match = await compare_faces(
+            img1=user_data.image, 
+            img2_file=img2_file
+        )
+        
+        if not is_match:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User face does not match stored image"
+            )
+        
+        
+        
+        
         
         
         

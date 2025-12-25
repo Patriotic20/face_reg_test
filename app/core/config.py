@@ -38,6 +38,10 @@ class AdminConfig(BaseModel):
     password: str
     name: str
 
+class FileUrl(BaseModel):
+    http: str
+    upload_dir: str
+
 class AppConfig(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -51,6 +55,7 @@ class AppConfig(BaseSettings):
     database: DatabaseConfig
     jwt: JwtConfig
     admin: AdminConfig
+    file_url: FileUrl
 
 
 

@@ -422,4 +422,4 @@ class QuestionsService:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Failed to delete question",
-            )
+            )           

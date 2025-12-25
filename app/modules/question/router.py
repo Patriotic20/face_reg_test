@@ -7,6 +7,7 @@ from core.utils.dependencies import require_permission
 from models.user import User
 from .services import QuestionsService
 from .schemas import QuestionUpdateRequest, QuestionRequest
+from core.utils.save_file import save_file
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,13 @@ async def create_question(
         data=data
     )
 
+@router.post("/upload")
+async def upload_file(
+    upload_file: UploadFile = File(),
+    _: User = Depends(require_permission("questions:upload")),
+):
+    url = save_file(file=upload_file, subdir="question")
+    return {"file_url": url}
 
 @router.post(
     "/bulk-upload",
