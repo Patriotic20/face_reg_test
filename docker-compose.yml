@@ -10,7 +10,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /home/docker-data/postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -30,7 +30,7 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - /home/docker-data/pgadmin_data:/var/lib/pgadmin
 
   app:
     build: .
