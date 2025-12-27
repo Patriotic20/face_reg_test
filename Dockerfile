@@ -27,4 +27,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 8000
 
 # Run entrypoint script
-CMD ["bash", "-c", "cd app/app && uv run python -m app.main"]
+CMD ["uv run python -m app.main"]
