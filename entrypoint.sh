@@ -10,4 +10,4 @@ fi
 # Start application with visible errors
 echo "Starting application..."
 cd /app
-exec uv run python app/main.py
+exec python app/main.py
