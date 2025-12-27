@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from modules.router import router as main_router
+from .modules.router import router as main_router
 import uvicorn
 from core.config import settings
 from core.lifespan import lifespan
