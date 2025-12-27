@@ -1,6 +1,6 @@
 from pydantic import BaseModel, field_validator
-from core.utils.normalize_str import normalize_str
-from core.schemas.time_mixin import DateTimeMixin
+from app.core.utils.normalize_str import normalize_str
+from app.core.schemas.time_mixin import DateTimeMixin
 
 
 class CreatePermissionRequest(BaseModel):

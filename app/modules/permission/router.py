@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from core.db_helper import db_helper
-from core.logging import logging
+from app.core.db_helper import db_helper
+from app.core.logging import logging
 from .services import PermissionService
 from .schemas import CreatePermissionRequest, CreatePermissionResponse
-from core.schemas.pagination import Pagination
+from app.core.schemas.pagination import Pagination
 
-from core.utils.dependencies import require_permission
+from app.core.utils.dependencies import require_permission
 from models.user import User
 
 logger = logging.getLogger(__name__)

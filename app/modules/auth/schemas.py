@@ -1,5 +1,5 @@
 from pydantic import BaseModel, field_validator, Field, computed_field
-from core.utils.normalize_str import normalize_str
+from app.core.utils.normalize_str import normalize_str
 from .utils.password_hash import hash_password
 
 
