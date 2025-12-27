@@ -35,9 +35,10 @@ services:
   app:
     build: .
     container_name: face_test_app
-    restart: always
+    restart: unless-stopped  # Changed from 'always'
     environment:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      PYTHONUNBUFFERED: 1
     depends_on:
       database:
         condition: service_healthy
@@ -45,7 +46,13 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app/app
-      - ./app/uploads:/app/app/uploads 
+      - ./app/uploads:/app/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"] # Adjust endpoint
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 volumes:
   postgres_data:
