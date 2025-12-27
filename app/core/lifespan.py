@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from app.core.utils.dependencies import sync_permissions_to_db
-from app.core.utils.base_roles import create_roles
-from app.core.utils.assign_user_roles import setup_admin_user
-from app.core.logging import logging
-from app.core.db_helper import db_helper
+from core.utils.dependencies import sync_permissions_to_db
+from core.utils.base_roles import create_roles
+from core.utils.assign_user_roles import setup_admin_user
+from core.logging import logging
+from core.db_helper import db_helper
 
 logger = logging.getLogger(__name__)
 
