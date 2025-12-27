@@ -8,15 +8,15 @@ from .schemas import (
     CreatePermissionResponse
 )
 
-from app.core.mixins.crud import (
+from core.mixins.crud import (
     create, 
     get, 
     get_all, 
     delete
 )
-from app.core.logging import logging
-from app.core.schemas.pagination import Pagination
-from app.models.permission import Permission
+from core.logging import logging
+from core.schemas.pagination import Pagination
+from models.permission import Permission
 
 logger = logging.getLogger(__name__)
 

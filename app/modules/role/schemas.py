@@ -1,9 +1,9 @@
 from pydantic import BaseModel, field_validator, Field
 from typing import List
 
-from app.core.utils.normalize_str import normalize_str
-from app.core.schemas.time_mixin import DateTimeMixin
-from app.core.schemas.pagination import PaginatedResponse
+from core.utils.normalize_str import normalize_str
+from core.schemas.time_mixin import DateTimeMixin
+from core.schemas.pagination import PaginatedResponse
 
 class RoleCreateRequest(BaseModel):
     name: str
@@ -43,7 +43,7 @@ class AssignPermissionRoleListRequest(BaseModel):
     
     
 class RoleListResponse(PaginatedResponse):
-    roles: List[RoleCreateResponse]
+    roles: list[RoleCreateResponse]
     
 
     

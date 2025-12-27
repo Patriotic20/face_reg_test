@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.db_helper import db_helper
-from app.core.schemas.pagination import Pagination
-from app.core.utils.dependencies import require_permission
-from app.core.logging import logging
+from core.db_helper import db_helper
+from core.schemas.pagination import Pagination
+from core.utils.dependencies import require_permission
+from core.logging import logging
 
-from app.models.user import User
+from models.user import User
 
 
 from .services import UserServices

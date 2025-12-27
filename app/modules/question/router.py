@@ -4,12 +4,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .services import QuestionsService
 from .schemas import QuestionUpdateRequest, QuestionRequest
 
-from app.core.schemas.pagination import Pagination
-from app.core.db_helper import db_helper
-from app.core.logging import logging
-from app.core.utils.dependencies import require_permission
-from app.models.user import User
-from app.core.utils.save_file import save_file
+from core.schemas.pagination import Pagination
+from core.db_helper import db_helper
+from core.logging import logging
+from core.utils.dependencies import require_permission
+from models.user import User
+from core.utils.save_file import save_file
 
 
 logger = logging.getLogger(__name__)

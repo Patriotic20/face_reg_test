@@ -4,7 +4,7 @@ from deepface import DeepFace
 from fastapi import UploadFile
 from urllib.parse import urlparse
 
-from app.core.config import settings
+from core.config import settings
 
 
 async def compare_faces(img1: str, img2_file: UploadFile) -> bool:

@@ -13,14 +13,14 @@ from .schemas import (
     UserListItem,
 )
 
-from app.models.association.user_role_association import UserRoleAssociation
-from app.models.user import User
-from app.models.role import Role
-from app.core.utils.get_user_by_id import get_user_by_id
-from app.core.mixins.crud import create, get, get_all, update, delete
-from app.core.schemas.pagination import Pagination
-from app.core.utils.save_file import save_file
-from app.core.logging import logging
+from models.association.user_role_association import UserRoleAssociation
+from models.user import User
+from models.role import Role
+from core.utils.get_user_by_id import get_user_by_id
+from core.mixins.crud import create, get, get_all, update, delete
+from core.schemas.pagination import Pagination
+from core.utils.save_file import save_file
+from core.logging import logging
 
 logger = logging.getLogger(__name__)
 

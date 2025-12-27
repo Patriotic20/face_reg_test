@@ -20,12 +20,12 @@ from app.core.mixins.crud import (
     delete
 )
 
-from app.models.role import Role
-from app.models.permission import Permission
-from app.models.association.role_permissions_association import RolePermissionAssociation
+from models.role import Role
+from models.permission import Permission
+from models.association.role_permissions_association import RolePermissionAssociation
 
-from app.core.logging import logging
-from app.core.schemas.pagination import Pagination
+from core.logging import logging
+from core.schemas.pagination import Pagination
 
 
 logger = logging.getLogger(__name__)

@@ -12,11 +12,11 @@ from .schemas import (
     QuestionUpdateRequest,
 )
 
-from app.models.questions import Question
-from app.core.logging import logging
-from app.core.mixins.crud import create
-from app.core.schemas.pagination import Pagination
-from app.core.config import settings
+from models.questions import Question
+from core.logging import logging
+from core.mixins.crud import create
+from core.schemas.pagination import Pagination
+from core.config import settings
 
 logger = logging.getLogger(__name__)
 
