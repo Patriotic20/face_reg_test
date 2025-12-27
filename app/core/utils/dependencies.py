@@ -7,13 +7,13 @@ from fastapi import HTTPException, status, Depends
 from fastapi.security import APIKeyHeader
 from typing import Callable
 
-from app.models.user import User
-from app.models.role import Role
-from app.models.permission import Permission
+from models.user import User
+from models.role import Role
+from models.permission import Permission
 
-from app.core.config import settings
-from app.core.db_helper import db_helper
-from app.core.logging import logging
+from core.config import settings
+from core.db_helper import db_helper
+from core.logging import logging
 
 logger = logging.getLogger(__name__)
 

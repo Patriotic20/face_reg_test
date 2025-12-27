@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 from fastapi import UploadFile
 
-from app.core.config import settings
+from core.config import settings
 
 # Project root (face_reg_test/)
 BASE_DIR = Path(__file__).resolve().parents[3]

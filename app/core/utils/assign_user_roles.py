@@ -1,23 +1,23 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.logging import logging
-from app.core.config import settings
-from app.core.db_helper import db_helper
+from core.logging import logging
+from core.config import settings
+from core.db_helper import db_helper
 
-from app.models.user import User
-from app.models.role import Role
-from app.models.permission import Permission
-from app.models.association.user_role_association import UserRoleAssociation
-from app.models.association.role_permissions_association import RolePermissionAssociation
+from models.user import User
+from models.role import Role
+from models.permission import Permission
+from models.association.user_role_association import UserRoleAssociation
+from models.association.role_permissions_association import RolePermissionAssociation
 
-from app.modules.auth.services import AuthService
-from app.modules.user.services import UserServices
-from app.modules.role.services import RoleServices
+from modules.auth.services import AuthService
+from modules.user.services import UserServices
+from modules.role.services import RoleServices
 
-from app.modules.auth.schemas import UserCreate
-from app.modules.user.schemas import AssignUserRoleRequest
-from app.modules.role.schemas import AssignPermissionRoleListRequest
+from modules.auth.schemas import UserCreate
+from modules.user.schemas import AssignUserRoleRequest
+from modules.role.schemas import AssignPermissionRoleListRequest
 
 logger = logging.getLogger(__name__)
 
