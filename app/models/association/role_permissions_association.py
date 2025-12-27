@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
-from app.models.base import Base
-from app.models.mixins.id_int_pk import IdIntPk
+from models.base import Base
+from models.mixins.id_int_pk import IdIntPk
 
 class RolePermissionAssociation(IdIntPk, Base):
     __tablename__ = "role_permission_association"
