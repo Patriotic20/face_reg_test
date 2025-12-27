@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, Query, status, UploadFile , File
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.db_helper import db_helper
-from core.schemas.pagination import Pagination
-from core.utils.dependencies import require_permission
-from models.user import User
+from app.core.db_helper import db_helper
+from app.core.schemas.pagination import Pagination
+from app.core.utils.dependencies import require_permission
+from app.models.user import User
 
 from .schemas import (
     EndQuizCreate,

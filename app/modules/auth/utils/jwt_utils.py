@@ -1,9 +1,10 @@
-from datetime import datetime, timedelta, timezone
-from jwt import ExpiredSignatureError, InvalidTokenError
-from fastapi import HTTPException, status
-from app.core.config import settings
-from typing import Dict, Any
 import jwt
+from jwt import ExpiredSignatureError, InvalidTokenError
+from datetime import datetime, timedelta, timezone
+from fastapi import HTTPException, status
+from typing import Dict, Any
+
+from app.core.config import settings
 
 def _create_token(data: dict, secret_key: str, expires_delta: timedelta):
     to_encode = data.copy()

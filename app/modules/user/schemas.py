@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 from typing import List
 from datetime import datetime
-from core.utils.normalize_str import normalize_str
+
+from app.core.utils.normalize_str import normalize_str
 
 
 class AssignUserRoleRequest(BaseModel):

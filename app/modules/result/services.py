@@ -2,11 +2,12 @@ from sqlalchemy import select, func
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.schemas.pagination import Pagination
+from app.core.schemas.pagination import Pagination
 from app.core.logging import logging
-from models.results import Result
+from app.core.mixins.crud import get
+from app.models.results import Result
+
 from .schemas import ResultListResponse, ResultResponse
-from core.mixins.crud import get
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
-from app.core.logging import logging
 
 from fastapi import HTTPException, status
 
@@ -13,9 +12,11 @@ from .schemas import (
     RefreshRequest,
     UpdatePassword
 )
-from app.models.user import User
-from .utils.password_hash import verify_password, hash_password
 from .utils.jwt_utils import create_access_token, create_refresh_token, decode_refresh_token
+from .utils.password_hash import verify_password
+
+from app.core.logging import logging
+from app.models.user import User
 from app.core.mixins.crud import create, partial_update
 
 logger = logging.getLogger(__name__)

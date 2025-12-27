@@ -1,4 +1,5 @@
 from pydantic import BaseModel, field_validator
+
 from app.core.utils.normalize_str import normalize_str
 from app.core.schemas.time_mixin import DateTimeMixin
 

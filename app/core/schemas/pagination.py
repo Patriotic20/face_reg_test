@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
-from typing import List, Any
+
 
 class Pagination(BaseModel):
     """Model for handling pagination parameters"""

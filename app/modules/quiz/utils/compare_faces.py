@@ -1,9 +1,11 @@
-from urllib.parse import urlparse
 import os
 import tempfile
 from deepface import DeepFace
 from fastapi import UploadFile
-from core.config import settings
+from urllib.parse import urlparse
+
+from app.core.config import settings
+
 
 async def compare_faces(img1: str, img2_file: UploadFile) -> bool:
     # Convert URL to local path

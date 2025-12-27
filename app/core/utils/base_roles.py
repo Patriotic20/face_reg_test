@@ -1,9 +1,8 @@
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from core.logging import logging
-from models.role import Role
-from core.db_helper import db_helper
+from app.models.role import Role
+from app.core.db_helper import db_helper
 
 logger = logging.getLogger(__name__)
 

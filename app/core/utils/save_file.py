@@ -2,7 +2,8 @@ import uuid
 import shutil
 from pathlib import Path
 from fastapi import UploadFile
-from core.config import settings
+
+from app.core.config import settings
 
 # Project root (face_reg_test/)
 BASE_DIR = Path(__file__).resolve().parents[3]

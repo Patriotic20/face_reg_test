@@ -1,10 +1,17 @@
 from fastapi import APIRouter
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
+
 from .services import AuthService
+from .schemas import (
+    UserCreate, 
+    UserLogin, 
+    RefreshRequest, 
+    UpdatePassword
+)
+
+from app.models.user import User
 from app.core.db_helper import db_helper
-from .schemas import UserCreate, UserLogin, RefreshRequest, UpdatePassword
-from models.user import User
 from app.core.utils.dependencies import require_permission
 
 

@@ -4,13 +4,15 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status, UploadFile
 
-from core.schemas.pagination import Pagination
-from core.config import settings
 from app.core.logging import logging
-from core.mixins.crud import create
+from app.core.mixins.crud import create
+from app.core.config import settings
+from app.core.schemas.pagination import Pagination
+
+from models.results import Result
 from models.quiz import Quiz
 from models.user import User
-from models.results import Result
+
 from .schemas import (
     QuizUpdate,
     QuizCreateRequest,
@@ -22,6 +24,8 @@ from .schemas import (
 
 )
 from .utils.compare_faces import compare_faces
+
+
 
 logger = logging.getLogger(__name__)
 

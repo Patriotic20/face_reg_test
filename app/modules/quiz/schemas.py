@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field, field_validator
-from core.schemas.time_mixin import DateTimeMixin
 from typing import Optional
-from core.schemas.pagination import PaginatedResponse
+
+from app.core.schemas.time_mixin import DateTimeMixin
+from app.core.schemas.pagination import PaginatedResponse
 
 
 class QuizCreateRequest(BaseModel):

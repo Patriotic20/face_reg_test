@@ -1,8 +1,9 @@
 from fastapi import FastAPI
-from .modules.router import router as main_router
 import uvicorn
-from core.config import settings
-from core.lifespan import lifespan
+
+from app.modules.router import router as main_router
+from app.core.config import settings
+from app.core.lifespan import lifespan
 
 main_app = FastAPI(lifespan=lifespan)
 

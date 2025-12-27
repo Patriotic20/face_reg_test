@@ -1,4 +1,3 @@
-import logging
 from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import (

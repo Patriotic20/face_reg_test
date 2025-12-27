@@ -2,7 +2,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from fastapi import HTTPException, status
-from models.user import User
+
+from app.models.user import User
 
 async def get_user_by_id(session: AsyncSession, user_id: int):
     stmt = (

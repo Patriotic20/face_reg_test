@@ -1,17 +1,19 @@
-from core.config import settings
 import jwt
 from jwt import InvalidTokenError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from models.user import User
-from models.role import Role
-from models.permission import Permission
 from sqlalchemy.orm import selectinload
 from fastapi import HTTPException, status, Depends
 from fastapi.security import APIKeyHeader
 from typing import Callable
-from core.db_helper import db_helper
-from core.logging import logging
+
+from app.models.user import User
+from app.models.role import Role
+from app.models.permission import Permission
+
+from app.core.config import settings
+from app.core.db_helper import db_helper
+from app.core.logging import logging
 
 logger = logging.getLogger(__name__)
 

@@ -1,6 +1,9 @@
+from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
+
 from .schemas import (
     RoleCreateRequest, 
     RoleCreateResponse, 
@@ -9,14 +12,20 @@ from .schemas import (
     RoleListResponse,
 )
 
-from core.mixins.crud import create, get, get_all, update, delete
-from models.role import Role
-from models.permission import Permission
-from models.association.role_permissions_association import RolePermissionAssociation
-from sqlalchemy.exc import IntegrityError
+from app.core.mixins.crud import (
+    create, 
+    get, 
+    get_all, 
+    update, 
+    delete
+)
+
+from app.models.role import Role
+from app.models.permission import Permission
+from app.models.association.role_permissions_association import RolePermissionAssociation
+
 from app.core.logging import logging
-from fastapi import HTTPException, status
-from core.schemas.pagination import Pagination
+from app.core.schemas.pagination import Pagination
 
 
 logger = logging.getLogger(__name__)
