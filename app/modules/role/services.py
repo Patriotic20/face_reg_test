@@ -12,7 +12,7 @@ from .schemas import (
     RoleListResponse,
 )
 
-from app.core.mixins.crud import (
+from core.mixins.crud import (
     create, 
     get, 
     get_all, 
