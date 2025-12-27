@@ -10,9 +10,9 @@ from .schemas import (
     UpdatePassword
 )
 
-from app.models.user import User
-from app.core.db_helper import db_helper
-from app.core.utils.dependencies import require_permission
+from models.user import User
+from core.db_helper import db_helper
+from core.utils.dependencies import require_permission
 
 
 router = APIRouter(

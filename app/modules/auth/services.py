@@ -15,9 +15,9 @@ from .schemas import (
 from .utils.jwt_utils import create_access_token, create_refresh_token, decode_refresh_token
 from .utils.password_hash import verify_password
 
-from app.core.logging import logging
-from app.models.user import User
-from app.core.mixins.crud import create, partial_update
+from core.logging import logging
+from models.user import User
+from core.mixins.crud import create, partial_update
 
 logger = logging.getLogger(__name__)
 
