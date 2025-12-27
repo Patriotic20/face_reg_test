@@ -4,7 +4,7 @@ from sqlalchemy import update as sqlalchemy_update, delete as sqlalchemy_delete,
 from sqlalchemy.exc import SQLAlchemyError
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
-from core.schemas.pagination import Pagination , PaginatedResponse
+from app.core.schemas.pagination import Pagination , PaginatedResponse
 
 # CREATE
 async def create(session: AsyncSession, model, data: BaseModel):
