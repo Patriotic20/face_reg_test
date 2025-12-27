@@ -4,14 +4,17 @@ FROM python:3.12
 # Set working directory
 WORKDIR /app
 
-# Install uv
-RUN pip install uv
+# Create virtual environment
+RUN python -m venv .venv
+
+# Install uv in the virtual environment
+RUN .venv/bin/pip install uv
 
 # Copy dependency files
 COPY pyproject.toml uv.lock ./
 
 # Sync dependencies using uv
-RUN uv sync 
+RUN .venv/bin/uv sync
 
 # Copy the entire project
 COPY . .
@@ -22,6 +25,7 @@ RUN chmod +x /app/entrypoint.sh
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Expose ports if needed (adjust based on your app)
 EXPOSE 8000
