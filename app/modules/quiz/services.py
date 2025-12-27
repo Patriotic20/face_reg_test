@@ -6,7 +6,7 @@ from fastapi import HTTPException, status, UploadFile
 
 from core.schemas.pagination import Pagination
 from core.config import settings
-from core.logging import logging
+from app.core.logging import logging
 from core.mixins.crud import create
 from models.quiz import Quiz
 from models.user import User

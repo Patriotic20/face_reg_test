@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select
-from core.logging import logging
+from app.core.logging import logging
 
 from fastapi import HTTPException, status
 

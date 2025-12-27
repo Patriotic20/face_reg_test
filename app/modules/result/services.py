@@ -3,7 +3,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.schemas.pagination import Pagination
-from core.logging import logging
+from app.core.logging import logging
 from models.results import Result
 from .schemas import ResultListResponse, ResultResponse
 from core.mixins.crud import get

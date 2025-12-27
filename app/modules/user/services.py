@@ -19,7 +19,7 @@ from core.utils.get_user_by_id import get_user_by_id
 from core.mixins.crud import create, get, get_all, update, delete
 from core.schemas.pagination import Pagination
 from core.utils.save_file import save_file
-from core.logging import logging
+from app.core.logging import logging
 
 logger = logging.getLogger(__name__)
 

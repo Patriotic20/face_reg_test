@@ -1,4 +1,4 @@
-from core.logging import logging
+from app.core.logging import logging
 from core.schemas.pagination import Pagination
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession

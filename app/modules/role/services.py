@@ -14,7 +14,7 @@ from models.role import Role
 from models.permission import Permission
 from models.association.role_permissions_association import RolePermissionAssociation
 from sqlalchemy.exc import IntegrityError
-from core.logging import logging
+from app.core.logging import logging
 from fastapi import HTTPException, status
 from core.schemas.pagination import Pagination
 
