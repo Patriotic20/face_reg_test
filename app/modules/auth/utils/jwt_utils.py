@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from jwt import ExpiredSignatureError, InvalidTokenError
 from fastapi import HTTPException, status
-from core.config import settings
+from app.core.config import settings
 from typing import Dict, Any
 import jwt
 
