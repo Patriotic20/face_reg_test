@@ -27,4 +27,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 8000
 
 # Run entrypoint script
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["uv", "run", "python", "-m", "app.main"]
