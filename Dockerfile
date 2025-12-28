@@ -1,34 +1,47 @@
-# Use official Python runtime as base image
-FROM python:3.12
+# Use the official uv image for a fast build
+FROM astral-sh/uv:python3.12-bookworm-slim AS builder
 
-# Set working directory
+# Install system dependencies for OpenCV and Dlib
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    libopenblas-dev \
+    liblapack-dev \
+    libx11-dev \
+    libgtk-3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Create virtual environment
-RUN python -m venv .venv
-
-# Install uv in the virtual environment
-RUN .venv/bin/pip install uv
+# Enable bytecode compilation for performance
+ENV UV_COMPILE_BYTECODE=1
 
 # Copy dependency files
 COPY pyproject.toml uv.lock ./
 
-# Sync dependencies using uv
-RUN .venv/bin/uv sync
+# Install dependencies
+RUN uv sync --frozen --no-dev --no-install-project
 
-# Copy the entire project
+# Copy the rest of your code
 COPY . .
 
-# Copy and make entrypoint.sh executable
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+# Final Stage (Compact image)
+FROM python:3.12-slim-bookworm
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
+# Install runtime libraries for OpenCV
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy the virtual environment from the builder
+COPY --from=builder /app/.venv /app/.venv
+COPY --from=builder /app /app
+
+# Set Path to use the uv virtualenv
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Expose ports if needed (adjust based on your app)
-EXPOSE 8000
-
-# Run entrypoint script
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Replace 'main.py' with your actual entry script
+CMD ["python", "main.py"]
