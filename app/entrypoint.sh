@@ -7,4 +7,4 @@ if [ -f "/app/alembic.ini" ]; then
 fi
 
 echo "Starting application..."
-exec python /app/app/main.py
+exec python /app/main.py
