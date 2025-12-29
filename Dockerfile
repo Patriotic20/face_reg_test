@@ -1,31 +1,36 @@
-# Use a standard Python image
 FROM python:3.12-slim-bookworm
 
-# Install UV inside the container
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+# Python runtime behavior
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Install system dependencies for DeepFace (OpenCV, TF, and build tools)
+# System dependencies for DeepFace / OpenCV / TensorFlow
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     libgl1 \
     libglib2.0-0 \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Working directory
 WORKDIR /app
 
-# Copy dependency files
-# Note: You MUST have a pyproject.toml or requirements.txt
-COPY pyproject.toml uv.lock ./
+# Copy requirements first (better Docker cache)
+COPY requirements.txt .
 
-# Install dependencies into a virtual environment
-RUN uv sync --frozen
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Copy your code
+# Copy application code
 COPY . .
 
-# Use the virtual environment path
-ENV PATH="/app/.venv/bin:$PATH"
+# Ensure entrypoint is executable
+RUN chmod +x /app/app/entrypoint.sh
 
-# Run your app (ensure main.py is your entry point)
-CMD ["python", "main.py"]
+# Expose FastAPI port
+EXPOSE 8000
+
+# Start container
+ENTRYPOINT ["/app/app/entrypoint.sh"]
