@@ -33,4 +33,4 @@ RUN chmod +x /app/app/entrypoint.sh
 EXPOSE 8000
 
 # Start container
-ENTRYPOINT ["/app/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
