@@ -8,5 +8,6 @@ if [ -f "alembic.ini" ]; then
 fi
 
 # Start application with visible errors
+
 echo "Starting application..."
 exec python main.py
